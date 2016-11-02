@@ -1,0 +1,89 @@
+html, body, main { height: 100%; }
+
+.flex {
+    display: flex;
+    height: 100%;
+}
+
+.flex--vert {
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.flex__item {
+    flex-grow: 1;
+}
+
+.l-main__encounters {
+    flex-grow: 5;
+}
+
+.l-main__tools {
+    flex-grow: 0;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    background-size: cover;
+    border-radius: 100%;
+    border: 1px solid #cccccc;
+    margin: 0;
+    padding: 0;
+}
+
+.party-list__item {
+    align-items: center;
+}
+
+.party-list__icon {
+    flex-grow: 0;
+    margin-right: 20px;
+}
+
+.party-list__info {
+    vertical-align: middle;
+}
+
+.dice-holder {
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.dice {
+    float: left;
+    width: 50px;
+    height: 50px;
+    outline: 1px solid #cccccc;
+    display: table;
+    text-align: center;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.dice span {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.dice:nth-child(3n+1) {
+    clear: left;
+}
+
+.dice-result {
+    clear: left;
+    background-color: #eeeeee;
+    padding: 5px;
+    text-align: center;
+    border-radius: 3px;
+}
+
+.dice-result__dice {
+    font-size: 12px;
+    margin: 5px 0 0 0;
+    color: #666666;
+}
+
+.dice-result__roll {
+    font-size: 32px;
+}

@@ -93,7 +93,43 @@ angular.module('dmTool', []).controller('adventureController', function($scope) 
             dice: 'D' + d,
             roll: Math.floor(Math.random() * d) + 1
         };
-    }
+    };
+    
+    $scope.currencies = [
+        {
+            name: 'Copper',
+            worthInGold: 0.01,
+            value: 0
+        },
+        {
+            name: 'Silver',
+            worthInGold: 0.1,
+            value: 0
+        },
+        {
+            name: 'Electrum',
+            worthInGold: 0.5,
+            value: 0
+        },
+        {
+            name: 'Gold',
+            worthInGold: 1,
+            value: 0
+        },
+        {
+            name: 'Platinum',
+            worthInGold: 10,
+            value: 0
+        }
+    ];
+
+    $scope.splitLoot = function () {
+        var totalGold = 0;
+        $scope.currencies.forEach(c => {
+            totalGold += c.value * c.worthInGold;
+        });
+        console.log('total gold', totalGold);
+    };
 
 });
 

@@ -49,8 +49,10 @@
                 </div>
 
                 <!-- tools & misc -->
-                <div class="flex__item l-main__tools">
+                <div class="flex__item l-main__tools text-right">
                     <h3>Tools</h3>
+
+                    <!-- dice -->
                     <div class="dice-holder">
                         <div class="dice"
                              ng-repeat="d in dice"
@@ -63,6 +65,18 @@
                         <h3 class="dice-result__dice">{{ diceRoll.dice }}</h3>
                         <h4 class="dice-result__roll">{{ diceRoll.roll }}</h4>
                     </div>
+
+                    <!-- loot divider -->
+                    <div ng-repeat="c in currencies">
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-addon">{{ c.name }}</span>
+                            <input type="text" class="form-control" ng-model="c.value">
+                            <!--<div class="input-group-addon">.00</div>-->
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" ng-click="splitLoot()">Split {{ party.length }} ways</button>
+
+
                 </div>
             </div>
         </main>

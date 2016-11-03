@@ -93,3 +93,31 @@ main {
 .dice-result__roll {
     font-size: 32px;
 }
+
+
+.stat-block li {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #cccccc;
+    vertical-align: top;
+    margin-right: 10px;
+    text-align: center;
+}
+
+.stat-block span {
+    display: block;
+}
+
+.stat-block__name {
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: bold;
+    color: #999999;
+    margin: 3px 0 0 0;
+}
+
+.stat-block__value {
+    font-size: 16px;
+    color: #666666;
+}

@@ -1,0 +1,33 @@
+<div class="flex__item party-list__icon">
+    <div class="avatar"
+         ng-if="human"
+         ng-style="{ 'background-image': 'url(' + player.classname.image + ')' }">
+    </div>
+    <div class="avatar"
+         ng-if="!human"
+         ng-style="{ 'background-image': 'url(/assets/img/monsters/goblin.jpg)' }">
+    </div>
+</div>
+<div class="flex__item party-list__info">
+    <h4 class="media-heading">
+        {{ player.name }}
+        <small class="text-uppercase" ng-hide="human">{{ player.type }} / {{ player.alignment }}</small>
+        <small class="text-uppercase" ng-show="human">{{ player.classname.name }}</small>
+    </h4>
+    <h6 class="text-uppercase">
+        <span ng-hide="human">Challenge {{ player.challenge_rating }} &bull;</span>
+        <span ng-show="human">Level {{ player.level }} &bull;</span>
+        {{ player.hit_points }} HP &bull;
+        {{ player.armor_class }} AC
+        <span ng-show="human"><br />
+            Passive Wisdom (Perception): {{ player.passive_wisdom_perception }}<br />
+        </span>
+    </h6>
+    <ul class="stat-block list-unstyled"
+        ng-hide="human">
+        <li ng-repeat="stat in player.stats">
+            <span class="stat-block__name">{{ stat.name }}</span>
+            <span class="stat-block__value">{{ stat.modifier}}</span>
+        </li>
+    </ul>
+</div>

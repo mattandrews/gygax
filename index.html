@@ -20,20 +20,13 @@
 
                 <!-- party info-->
                 <div class="flex__item l-main__party">
+                    <h2>Config</h2>
 
                     <h3>Your party <small>({{ party.length }} members)</small></h3>
-                    <ul ng-repeat="p in party"
-                        class="party-list list-unstyled">
-                        <li class="flex party-list__item">
-                            <div class="flex__item party-list__icon">
-                                <div class="avatar"
-                                     ng-style="{ 'background-image': 'url(' + p.classname.image + ')' }">
-                                </div>
-                            </div>
-                            <div class="flex__item party-list__info">
-                                <h4 class="media-heading">{{ p.name }} <small>{{ p.classname.name }}</small></h4>
-                                <h6 class="text-uppercase">Level {{ p.level }} &bull; {{ p.hp }}hp remaining</h6>
-                            </div>
+                    <ul class="party-list list-unstyled">
+                        <li ng-repeat="p in party"
+                            class="party-list__item">
+                            <player-bar player="p" human="true" class="flex"></player-bar>
                         </li>
                     </ul>
 
@@ -45,14 +38,44 @@
 
                 <!-- encounter pane -->
                 <div class="flex__item l-main__encounters">
-                    <h3>Encounters</h3>
+                    <h2>Encounters</h2>
+
+                    <h3>Active Encounter</h3>
+                    <div ng-show="!activeEncounter">
+                        <p>No active encounter yet &ndash; begin one below.</p>
+                        <button class="btn btn-primary">Begin an encounter</button>
+                    </div>
+
+                    <ul class="party-list list-unstyled">
+                        <li ng-repeat="m in encounter.monsters track by $index"
+                            class="party-list__item">
+                            <player-bar player="m" class="flex"></player-bar>
+                        </li>
+                    </ul>
+
+
+                    <!-- add monster from list -->
+                    <select class="form-control"
+                            ng-model="monsterToAdd"
+                            ng-options="option.name for option in monsters track by option.id">
+                        <option value="">---Choose a monster---</option>
+                    </select>
+                    <!-- add monster button -->
+                    <button class="btn btn-primary"
+                            ng-click="addMonsterToEncounter(monsterToAdd.data)"
+                            ng-show="monsterToAdd">
+                        Add {{ monsterToAdd.data.name }} to this encounter
+                    </button>
+
+
                 </div>
 
                 <!-- tools & misc -->
                 <div class="flex__item l-main__tools text-right">
-                    <h3>Tools</h3>
+                    <h2>Tools</h2>
 
                     <!-- dice -->
+                    <h3>Dice Roller</h3>
                     <div class="dice-holder">
                         <div class="dice"
                              ng-repeat="d in dice"
@@ -60,21 +83,22 @@
                             <span>D{{ d }}</span>
                         </div>
                     </div>
-                    <div class="dice-result"
-                         ng-show="diceRoll">
-                        <h3 class="dice-result__dice">{{ diceRoll.dice }}</h3>
-                        <h4 class="dice-result__roll">{{ diceRoll.roll }}</h4>
+                    <div class="dice-result">
+                        <h3 class="dice-result__dice">{{ diceRoll.dice || 'Dice' }}</h3>
+                        <h4 class="dice-result__roll">{{ diceRoll.roll || '—' }}</h4>
                     </div>
 
                     <!-- loot divider -->
+                    <h3>Loot Divider</h3>
                     <div ng-repeat="c in currencies">
                         <div class="input-group input-group-sm">
                             <span class="input-group-addon">{{ c.name }}</span>
                             <input type="text" class="form-control" ng-model="c.value">
-                            <!--<div class="input-group-addon">.00</div>-->
+                            <div ng-show="c.share" class="input-group-addon">= {{ c.share }}{{ c.abbreviation}}p each</div>
                         </div>
                     </div>
                     <button class="btn btn-primary" ng-click="splitLoot()">Split {{ party.length }} ways</button>
+                    <button class="btn btn-primary" ng-click="clearCurrency()">Clear all</button>
 
 
                 </div>

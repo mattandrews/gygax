@@ -100,62 +100,75 @@ app.controller('adventureController', function($scope, $http) {
         $scope.encounter.monsters.push(monster);
     };
 
-    var classTypes = {
-        barbarian: {
+    $scope.classTypes = [
+        {
             name: 'Barbarian',
             image: 'assets/img/classes/barbarian.jpg'
         },
-        bard: {
+        {
             name: 'Bard',
             image: 'assets/img/classes/bard.jpg'
         },
-        cleric: {
+        {
             name: 'Cleric',
             image: 'assets/img/classes/cleric.jpg'
         },
-        druid: {
+        {
             name: 'Druid',
             image: 'assets/img/classes/druid.jpg'
         },
-        fighter: {
+        {
             name: 'Fighter',
             image: 'assets/img/classes/fighter.jpg'
         },
-        monk: {
+        {
             name: 'Monk',
             image: 'assets/img/classes/monk.jpg'
         },
-        paladin: {
+        {
             name: 'Paladin',
             image: 'assets/img/classes/paladin.jpg'
         },
-        ranger: {
+        {
             name: 'Ranger',
             image: 'assets/img/classes/ranger.jpg'
         },
-        rogue: {
+        {
             name: 'Rogue',
             image: 'assets/img/classes/rogue.jpg'
         },
-        sorcerer: {
+        {
             name: 'Sorcerer',
             image: 'assets/img/classes/sorcerer.jpg'
         },
-        warlock: {
+        {
             name: 'Warlock',
             image: 'assets/img/classes/warlock.jpg'
         },
-        wizard: {
+        {
             name: 'Wizard',
             image: 'assets/img/classes/wizard.jpg'
         }
-    };
-    
+    ];
+
+    $scope.races = [
+        'Dragonborn',
+        'Dwarf',
+        'Elf',
+        'Gnome',
+        'Half-elf',
+        'Half-orc',
+        'Halfling',
+        'Human',
+        'Tiefling'
+    ];
+
+    $scope.party = [];
     $scope.party = [
         {
             name: 'Thoradin',
-            race: 'dwarf',
-            classname: classTypes.druid,
+            race: 'Dwarf',
+            classname: $scope.classTypes[0],
             hit_points: 18,
             armor_class: 18,
             passive_wisdom_perception: 12,
@@ -164,8 +177,8 @@ app.controller('adventureController', function($scope, $http) {
         },
         {
             name: 'Thia',
-            race: 'elf',
-            classname: classTypes.cleric,
+            race: 'Elf',
+            classname: $scope.classTypes[1],
             hit_points: 14,
             armor_class: 18,
             passive_wisdom_perception: 16,
@@ -174,8 +187,8 @@ app.controller('adventureController', function($scope, $http) {
         },
         {
             name: 'Fighty Dave',
-            race: 'human',
-            classname: classTypes.fighter,
+            race: 'Human',
+            classname: $scope.classTypes[2],
             hit_points: 23,
             armor_class: 18,
             passive_wisdom_perception: 10,
@@ -184,8 +197,8 @@ app.controller('adventureController', function($scope, $http) {
         },
         {
             name: 'Sgt. Bash',
-            race: 'human',
-            classname: classTypes.paladin,
+            race: 'Human',
+            classname: $scope.classTypes[3],
             hit_points: 25,
             armor_class: 18,
             passive_wisdom_perception: 9,
@@ -248,6 +261,28 @@ app.controller('adventureController', function($scope, $http) {
             c.value = 0;
         });
     };
+
+    $scope.showOverlay = function (overlayToShow) {
+        $scope.showModal = overlayToShow
+    };
+
+    $scope.hideOverlay = function () {
+        delete $scope.showModal;
+    };
+
+    $scope.createPlayer = function (newPlayer) {
+        $scope.party.push(newPlayer);
+        $scope.hideOverlay();
+    };
+
+    $scope.editPlayer = function (player) {
+        $scope.playerToEdit = player;
+        $scope.showOverlay('edit-player');
+    };
+
+    $scope.doneEditing = function () {
+        $scope.hideOverlay();
+    }
     
 });
 
@@ -255,9 +290,24 @@ app.directive('playerBar', function() {
     return {
         restrict: 'E',
         scope: {
-            player: '=player',
-            human: '=human'
+            player: '=',
+            human: '=',
+            editPlayer: '='
         },
         templateUrl: '/assets/templates/player-bar.html'
+    };
+});
+
+app.directive('playerForm', function() {
+    return {
+        restrict: 'E',
+        scope: {
+            player: '=',
+            races: '=',
+            classTypes: '=',
+            createPlayer: '=',
+            doneEditing: '='
+        },
+        templateUrl: '/assets/templates/player-form.html'
     };
 });

@@ -96,6 +96,9 @@ main {
     font-size: 32px;
 }
 
+.stat-block {
+    margin-bottom: 20px;
+}
 
 .stat-block li {
     display: inline-block;

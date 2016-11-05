@@ -85,13 +85,14 @@ app.controller('adventureController', function($scope, $http) {
             d.stats = makeStatBlock(d);
             d.type = d.type.replace(/ /g, '-');
             d.passivePerception = 10 + (d.perception  || parseInt($scope.getAbilityScoreModifier(d.wisdom)));
+            d.initiative = 0;
             return {
                 id: d.name,
                 name: d.name + ' (' + d.hit_points + ' HP)',
                 data: d
             }
         });
-        [$scope.monsters[0].data, $scope.monsters[1].data, $scope.monsters[2].data].forEach($scope.addMonsterToEncounter);
+        //[$scope.monsters[0].data, $scope.monsters[1].data, $scope.monsters[2].data].forEach($scope.addMonsterToEncounter);
     });
 
     $scope.encounter = {
@@ -175,7 +176,8 @@ app.controller('adventureController', function($scope, $http) {
             armor_class: 18,
             passive_wisdom_perception: 12,
             dexterity_stealth: 10,
-            level: 3
+            level: 3,
+            initiative: 0
         },
         {
             name: 'Thia',
@@ -185,7 +187,8 @@ app.controller('adventureController', function($scope, $http) {
             armor_class: 18,
             passive_wisdom_perception: 16,
             dexterity_stealth: 10,
-            level: 3
+            level: 3,
+            initiative: 0
         },
         {
             name: 'Fighty Dave',
@@ -195,7 +198,8 @@ app.controller('adventureController', function($scope, $http) {
             armor_class: 18,
             passive_wisdom_perception: 10,
             dexterity_stealth: 10,
-            level: 3
+            level: 3,
+            initiative: 0
         },
         {
             name: 'Sgt. Bash',
@@ -205,7 +209,8 @@ app.controller('adventureController', function($scope, $http) {
             armor_class: 18,
             passive_wisdom_perception: 9,
             dexterity_stealth: 10,
-            level: 3
+            level: 3,
+            initiative: 0
         }
     ];
 
@@ -320,3 +325,21 @@ app.directive('playerForm', function() {
         templateUrl: '/assets/templates/player-form.html'
     };
 });
+
+app.directive('modelChangeBlur', function() {
+    return {
+        restrict: 'A',
+        require: 'ngModel',
+        link: function(scope, elm, attr, ngModelCtrl) {
+            if (attr.type === 'radio' || attr.type === 'checkbox') return;
+
+            elm.unbind('input').unbind('keydown').unbind('change');
+            elm.bind('blur', function() {
+                scope.$apply(function() {
+                    ngModelCtrl.$setViewValue(elm.val());
+                });
+            });
+        }
+    };
+});
+

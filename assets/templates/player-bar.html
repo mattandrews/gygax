@@ -7,12 +7,14 @@
          ng-if="!human"
          ng-style="{ 'background-image': 'url(/assets/img/monsters/' + player.type + '.jpg)' }">
     </div>
-    <button class="btn btn-sm btn-block" ng-show="human" ng-click="editPlayer(player)">Edit</button>
-    <button class="btn btn-sm btn-block" ng-show="!human" ng-click="editMonster(player)">Edit</button>
+    <button class="btn btn-default btn-xs btn-block" ng-show="human" ng-click="editPlayer(player)">Edit</button>
+    <button class="btn btn-default btn-xs btn-block" ng-show="!human" ng-click="editMonster(player)">Edit</button>
+    <button class="btn btn-default btn-xs btn-block"
+            ng-click="(player.surprised) ? player.surprised = false : player.surprised = true">Surprised?</button>
 </div>
 <div class="flex__item party-list__info">
     <h4 class="media-heading">
-        {{ player.name }}
+        {{ player.name }} <span ng-if="player.surprised">Surprised!</span>
         <small class="text-uppercase" ng-hide="human">{{ player.type }} / {{ player.alignment }}</small>
         <small class="text-uppercase" ng-show="human">{{ player.classname.name }}</small>
     </h4>
@@ -35,7 +37,9 @@
             <br />
             Passive wisdom (perception): {{player.passivePerception}}<br />
         </div>
+
     </h6>
+
     <ul class="stat-block list-unstyled"
         ng-hide="human">
         <li ng-repeat="stat in player.stats">
@@ -43,4 +47,11 @@
             <span class="stat-block__value">{{ stat.modifier}}</span>
         </li>
     </ul>
+
+    <div class="form-inline">
+        <div class="form-group form-group-sm">
+            <label class="control-label">Initiative</label>
+            <input model-change-blur type="number" class="form-control input-sm" ng-model="player.initiative">
+        </div>
+    </div>
 </div>

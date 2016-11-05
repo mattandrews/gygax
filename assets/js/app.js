@@ -84,6 +84,7 @@ app.controller('adventureController', function($scope, $http) {
         $scope.monsters = data.filter(d => d.name).map(d => {
             d.stats = makeStatBlock(d);
             d.type = d.type.replace(/ /g, '-');
+            d.passivePerception = 10 + (d.perception  || parseInt($scope.getAbilityScoreModifier(d.wisdom)));
             return {
                 id: d.name,
                 name: d.name + ' (' + d.hit_points + ' HP)',

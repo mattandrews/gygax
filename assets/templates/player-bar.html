@@ -24,7 +24,7 @@
         <span ng-show="human"><br />
             Passive Wisdom (Perception): {{ player.passive_wisdom_perception }}<br />
         </span>
-        <div ng-show="!human"><br />
+        <div ng-show="!human">
             Stealth modifier:
             <span ng-if="player.stealth">
                 +{{ player.stealth }}
@@ -32,14 +32,8 @@
             <span ng-if="!player.stealth">
                 {{ getAbilityScoreModifier(player.dexterity) }} (DEX)
             </span>
-            <br />Passive wisdom (perception):
-            <span ng-if="player.perception">
-                +{{ player.perception }}
-            </span>
-            <span ng-if="!player.perception">
-                {{ getAbilityScoreModifier(player.wisdom)}} (WIS)
-            </span>
             <br />
+            Passive wisdom (perception): {{player.passivePerception}}<br />
         </div>
     </h6>
     <ul class="stat-block list-unstyled"

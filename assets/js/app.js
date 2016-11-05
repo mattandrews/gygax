@@ -83,6 +83,7 @@ app.controller('adventureController', function($scope, $http) {
     $http.get('/assets/data/monsters.json').success(function (data) {
         $scope.monsters = data.filter(d => d.name).map(d => {
             d.stats = makeStatBlock(d);
+            d.type = d.type.replace(/ /g, '-');
             return {
                 id: d.name,
                 name: d.name + ' (' + d.hit_points + ' HP)',

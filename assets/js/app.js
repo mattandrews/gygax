@@ -6,37 +6,37 @@ app.controller('adventureController', function($scope, $http) {
             {
                 name: 'STR',
                 value: data.strength,
-                modifier: getAbilityScoreModifier(data.strength)
+                modifier: $scope.getAbilityScoreModifier(data.strength)
             },
             {
                 name: 'DEX',
                 value: data.dexterity,
-                modifier: getAbilityScoreModifier(data.dexterity)
+                modifier: $scope.getAbilityScoreModifier(data.dexterity)
             },
             {
                 name: 'CON',
                 value: data.constitution,
-                modifier: getAbilityScoreModifier(data.constitution)
+                modifier: $scope.getAbilityScoreModifier(data.constitution)
             },
             {
                 name: 'INT',
                 value: data.intelligence,
-                modifier: getAbilityScoreModifier(data.intelligence)
+                modifier: $scope.getAbilityScoreModifier(data.intelligence)
             },
             {
                 name: 'WIS',
                 value: data.wisdom,
-                modifier: getAbilityScoreModifier(data.wisdom)
+                modifier: $scope.getAbilityScoreModifier(data.wisdom)
             },
             {
                 name: 'CHA',
                 value: data.charisma,
-                modifier: getAbilityScoreModifier(data.charisma)
+                modifier: $scope.getAbilityScoreModifier(data.charisma)
             }
         ];
     };
 
-    var getAbilityScoreModifier = function (score) {
+    $scope.getAbilityScoreModifier = function (score) {
         var modifier;
         if (score === 1) {
             modifier = -5;
@@ -283,8 +283,13 @@ app.controller('adventureController', function($scope, $http) {
 
     $scope.doneEditing = function () {
         $scope.hideOverlay();
-    }
-    
+    };
+
+    $scope.editMonster = function (monster) {
+        $scope.monsterToEdit = monster;
+        $scope.showOverlay('edit-monster');
+    };
+
 });
 
 app.directive('playerBar', function() {
@@ -293,7 +298,9 @@ app.directive('playerBar', function() {
         scope: {
             player: '=',
             human: '=',
-            editPlayer: '='
+            editPlayer: '=',
+            editMonster: '=',
+            getAbilityScoreModifier: '='
         },
         templateUrl: '/assets/templates/player-bar.html'
     };

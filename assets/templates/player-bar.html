@@ -5,9 +5,10 @@
     </div>
     <div class="avatar"
          ng-if="!human"
-         ng-style="{ 'background-image': 'url(/assets/img/monsters/goblin.jpg)' }">
+         ng-style="{ 'background-image': 'url(/assets/img/monsters/' + player.type + '.jpg)' }">
     </div>
-    <button class="btn btn-sm" ng-show="human" ng-click="editPlayer(player)">Edit</button>
+    <button class="btn btn-sm btn-block" ng-show="human" ng-click="editPlayer(player)">Edit</button>
+    <button class="btn btn-sm btn-block" ng-show="!human" ng-click="editMonster(player)">Edit</button>
 </div>
 <div class="flex__item party-list__info">
     <h4 class="media-heading">
@@ -22,6 +23,9 @@
         {{ player.armor_class }} AC
         <span ng-show="human"><br />
             Passive Wisdom (Perception): {{ player.passive_wisdom_perception }}<br />
+        </span>
+        <span ng-show="!human"><br />
+            Stealth modifier: {{ player.stealth || getAbilityScoreModifier(player.dexterity) + ' (DEX)' }}<br />
         </span>
     </h6>
     <ul class="stat-block list-unstyled"

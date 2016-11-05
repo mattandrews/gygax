@@ -45,16 +45,20 @@
                 <div class="flex__item l-main__encounters">
                     <h2>Encounters</h2>
 
-                    <h3>Active Encounter</h3>
-                    <div ng-show="!activeEncounter">
-                        <p>No active encounter yet &ndash; begin one below.</p>
-                        <button class="btn btn-primary">Begin an encounter</button>
-                    </div>
+                    <!--<h3>Active Encounter</h3>-->
+                    <!--<div ng-show="!activeEncounter">-->
+                        <!--<p>No active encounter yet &ndash; begin one below.</p>-->
+                        <!--<button class="btn btn-primary">Begin an encounter</button>-->
+                    <!--</div>-->
 
+                    <h3>Monsters in encounter</h3>
                     <ul class="party-list list-unstyled">
                         <li ng-repeat="m in encounter.monsters track by $index"
                             class="party-list__item">
-                            <player-bar player="m" class="flex"></player-bar>
+                            <player-bar player="m"
+                                        edit-monster="editMonster"
+                                        get-ability-score-modifier="getAbilityScoreModifier"
+                                        class="flex"></player-bar>
                         </li>
                     </ul>
 
@@ -63,7 +67,7 @@
                     <select class="form-control"
                             ng-model="monsterToAdd"
                             ng-options="option.name for option in monsters track by option.id">
-                        <option value="">---Choose a monster---</option>
+                        <option value="">---Choose a monster to add---</option>
                     </select>
                     <!-- add monster button -->
                     <button class="btn btn-primary"
@@ -118,7 +122,8 @@
                                 <span>&times;</span>
                             </button>
                             <h4 class="modal-title" ng-show="showModal === 'add-player'">Add player</h4>
-                            <h4 class="modal-title" ng-show="showModal === 'edit-player'">Edit {{ playerToEdit.name
+                            <h4 class="modal-title" ng-show="showModal === 'edit-player'">Edit {{ playerToEdit.name</h4>
+                            <h4 class="modal-title" ng-show="showModal === 'edit-monster'">Edit {{ monsterToEdit.name
                                 }}</h4>
                         </div>
                         <div class="modal-body">

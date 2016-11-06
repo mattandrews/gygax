@@ -8,9 +8,9 @@
              ng-if="!human"
              ng-style="{ 'background-image': 'url(/assets/img/monsters/' + player.type + '.jpg)' }">
         </div>
-        <button class="btn btn-default btn-xs btn-block" ng-show="human" ng-click="editPlayer(player)">Edit</button>
+        <button class="btn btn-warning btn-xs btn-block" ng-show="human" ng-click="editPlayer(player)">Edit</button>
         <!--<button class="btn btn-default btn-xs btn-block" ng-show="!human" ng-click="editMonster(player)">Edit</button>-->
-        <button class="btn btn-default btn-xs btn-block"
+        <button class="btn btn-info btn-xs btn-block"
                 ng-click="(player.surprised) ? player.surprised = false : player.surprised = true">Surprised?</button>
     </div>
     <div class="flex__item party-list__info">
@@ -55,7 +55,7 @@
                 <div class="col-sm-6">
                     <input type="number" class="form-control input-sm" ng-model="player.initiative">
                 </div>
-                </div>
+            </div>
             <div class="form-group form-group-sm">
                 <label class="control-label col-sm-6">Hit points</label>
                 <div class="col-sm-6">

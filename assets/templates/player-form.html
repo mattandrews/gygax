@@ -1,60 +1,65 @@
-<div class="form-group">
-    <label>Character Name</label>
-    <input type="text" class="form-control" placeholder="eg. Gandalf"
-           ng-model="player.name">
-</div>
+<form name="userForm">
+    <input type="hidden" ng-model="player.initiative">
 
-<div class="form-group">
-    <label>Race</label>
-    <select class="form-control" ng-model="player.race"
-            ng-options="option for option in races track by option">
-        <option value="">---Choose a race---</option>
-    </select>
-</div>
+    <div class="form-group">
+        <label>Character Name</label>
+        <input type="text" class="form-control" placeholder="eg. Gandalf"
+               ng-model="player.name" required>
+    </div>
 
-<div class="form-group">
-    <label>Class</label>
-    <select class="form-control" ng-model="player.classname"
-            ng-options="option.name for option in classTypes track by option.name">
-        <option value="">---Choose a class---</option>
-    </select>
-</div>
+    <div class="form-group">
+        <label>Race</label>
+        <select class="form-control" ng-model="player.race"
+                ng-options="option for option in races track by option">
+            <option value="">---Choose a race---</option>
+        </select>
+    </div>
 
-<div class="form-group">
-    <div class="row">
-        <div class="col-md-4">
-            <label>HP</label>
-            <input type="number" class="form-control" ng-model="player.hit_points">
-        </div>
-        <div class="col-md-4">
-            <label>AC</label>
-            <input type="number" class="form-control" ng-model="player.armor_class">
-        </div>
-        <div class="col-md-4">
-            <label>Level</label>
-            <input type="number" class="form-control" ng-model="player.level">
+    <div class="form-group">
+        <label>Class</label>
+        <select class="form-control" ng-model="player.classname"
+                ng-options="option.name for option in classTypes track by option.name">
+            <option value="">---Choose a class---</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-4">
+                <label>HP</label>
+                <input type="number" class="form-control" ng-model="player.hit_points" required>
+            </div>
+            <div class="col-md-4">
+                <label>AC</label>
+                <input type="number" class="form-control" ng-model="player.armor_class" required>
+            </div>
+            <div class="col-md-4">
+                <label>Level</label>
+                <input type="number" class="form-control" ng-model="player.level" required>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="form-group">
-    <label>Passive Wisdom (Perception)</label>
-    <input type="number" class="form-control" ng-model="player.passive_wisdom_perception">
-</div>
+    <div class="form-group">
+        <label>Passive Wisdom (Perception)</label>
+        <input type="number" class="form-control" ng-model="player.passive_wisdom_perception" required>
+    </div>
 
-<div class="form-group">
-    <label>Dexterity (Stealth)</label>
-    <input type="number" class="form-control" ng-model="player.dexterity_stealth">
-</div>
+    <div class="form-group">
+        <label>Dexterity (Stealth)</label>
+        <input type="number" class="form-control" ng-model="player.dexterity_stealth" required>
+    </div>
 
-<button class="btn btn-primary"
-        ng-show="createPlayer"
-        ng-click="createPlayer(player)">
-    Add this player
-</button>
+    <button class="btn btn-primary"
+            ng-show="createPlayer"
+            ng-click="createPlayer(player)"
+            ng-disabled="userForm.$invalid">
+        Add this player
+    </button>
 
-<button class="btn btn-primary"
-        ng-show="doneEditing"
-        ng-click="doneEditing()">
-    Save and close
-</button>
+    <button class="btn btn-primary"
+            ng-show="doneEditing"
+            ng-click="doneEditing()">
+        Save and close
+    </button>
+</form>

@@ -62,9 +62,9 @@
                     </ul>
 
                     <div class="inner">
-                        <button class="btn btn-primary btn-sm"
+                        <button class="btn btn-primary btn-sm btn-block"
                                 ng-click="showOverlay('add-player')">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add new party member?
+                            Add new party member
                         </button>
                     </div>
 
@@ -121,14 +121,14 @@
                                             ng-if="!round">
                                         Begin combat
                                     </button>
-                                    <button class="btn btn-block btn-primary"
+                                    <button class="btn btn-block btn-danger"
                                             ng-click="endRound()"
                                             ng-if="round">
                                         End combat
                                     </button>
                                 </div>
                                 <div class="col-md-6">
-                                    <button class="btn btn-block btn-primary"
+                                    <button class="btn btn-block btn-success"
                                             ng-click="nextTurn()"
                                             ng-disabled="!round">
                                         Next turn

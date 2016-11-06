@@ -1,6 +1,8 @@
 var app = angular.module('dmTool', []);
 app.controller('adventureController', function($scope, $http) {
 
+    var isDebug = false;
+
     var makeStatBlock = function (data) {
         return [
             {
@@ -92,7 +94,9 @@ app.controller('adventureController', function($scope, $http) {
                 data: d
             }
         });
-        //[$scope.monsters[0].data, $scope.monsters[1].data, $scope.monsters[2].data].forEach($scope.addMonsterToEncounter);
+        if (isDebug) {
+            [$scope.monsters[0].data, $scope.monsters[1].data, $scope.monsters[2].data].forEach($scope.addMonsterToEncounter);
+        }
     });
 
     $scope.encounter = {
@@ -121,7 +125,6 @@ app.controller('adventureController', function($scope, $http) {
         }
         newMonster.name = newMonsterName;
         $scope.encounter.monsters.push(newMonster);
-        console.log($scope.encounter.monsters);
     };
 
     $scope.classTypes = [
@@ -188,52 +191,55 @@ app.controller('adventureController', function($scope, $http) {
     ];
 
     $scope.party = [];
-    $scope.party = [
-        {
-            name: 'Thoradin',
-            race: 'Dwarf',
-            classname: $scope.classTypes[0],
-            hit_points: 18,
-            armor_class: 18,
-            passive_wisdom_perception: 12,
-            dexterity_stealth: 10,
-            level: 3,
-            initiative: 0
-        },
-        {
-            name: 'Thia',
-            race: 'Elf',
-            classname: $scope.classTypes[1],
-            hit_points: 14,
-            armor_class: 18,
-            passive_wisdom_perception: 16,
-            dexterity_stealth: 10,
-            level: 3,
-            initiative: 0
-        },
-        {
-            name: 'Fighty Dave',
-            race: 'Human',
-            classname: $scope.classTypes[2],
-            hit_points: 23,
-            armor_class: 18,
-            passive_wisdom_perception: 10,
-            dexterity_stealth: 10,
-            level: 3,
-            initiative: 0
-        },
-        {
-            name: 'Sgt. Bash',
-            race: 'Human',
-            classname: $scope.classTypes[3],
-            hit_points: 25,
-            armor_class: 18,
-            passive_wisdom_perception: 9,
-            dexterity_stealth: 10,
-            level: 3,
-            initiative: 0
-        }
-    ];
+
+    if (isDebug) {
+        $scope.party = [
+            {
+                name: 'Thoradin',
+                race: 'Dwarf',
+                classname: $scope.classTypes[0],
+                hit_points: 18,
+                armor_class: 18,
+                passive_wisdom_perception: 12,
+                dexterity_stealth: 10,
+                level: 3,
+                initiative: 0
+            },
+            {
+                name: 'Thia',
+                race: 'Elf',
+                classname: $scope.classTypes[1],
+                hit_points: 14,
+                armor_class: 18,
+                passive_wisdom_perception: 16,
+                dexterity_stealth: 10,
+                level: 3,
+                initiative: 0
+            },
+            {
+                name: 'Fighty Dave',
+                race: 'Human',
+                classname: $scope.classTypes[2],
+                hit_points: 23,
+                armor_class: 18,
+                passive_wisdom_perception: 10,
+                dexterity_stealth: 10,
+                level: 3,
+                initiative: 0
+            },
+            {
+                name: 'Sgt. Bash',
+                race: 'Human',
+                classname: $scope.classTypes[3],
+                hit_points: 25,
+                armor_class: 18,
+                passive_wisdom_perception: 9,
+                dexterity_stealth: 10,
+                level: 3,
+                initiative: 0
+            }
+        ];
+    }
 
     $scope.dice = [4, 6, 8, 10, 12, 20];
 
@@ -299,6 +305,7 @@ app.controller('adventureController', function($scope, $http) {
     };
 
     $scope.createPlayer = function (newPlayer) {
+        newPlayer.initiative = 0;
         $scope.party.push(newPlayer);
         $scope.hideOverlay();
     };

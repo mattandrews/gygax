@@ -1,7 +1,7 @@
 var app = angular.module('dmTool', []);
 app.controller('adventureController', function($scope, $http) {
 
-    var isDebug = false;
+    var isDebug = true;
 
     var makeStatBlock = function (data) {
         return [
@@ -319,9 +319,9 @@ app.controller('adventureController', function($scope, $http) {
         $scope.hideOverlay();
     };
 
-    $scope.editMonster = function (monster) {
-        $scope.monsterToEdit = monster;
-        $scope.showOverlay('edit-monster');
+    $scope.viewMonster = function (monster) {
+        $scope.monsterToView = monster;
+        $scope.showOverlay('view-monster');
     };
 
     $scope.getCombatants = function () {
@@ -390,6 +390,14 @@ app.controller('adventureController', function($scope, $http) {
         }
     };
 
+    $scope.toggleAction = function (action) {
+        if (action.descfull) {
+            delete action.descfull;
+        } else {
+            action.descfull = action.desc;
+        }
+    };
+
 });
 
 app.directive('playerBar', function() {
@@ -399,7 +407,7 @@ app.directive('playerBar', function() {
             player: '=',
             human: '=',
             editPlayer: '=',
-            editMonster: '=',
+            viewMonster: '=',
             getAbilityScoreModifier: '='
         },
         templateUrl: '/assets/templates/player-bar.html'

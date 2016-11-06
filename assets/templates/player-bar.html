@@ -9,7 +9,8 @@
              ng-style="{ 'background-image': 'url(/assets/img/monsters/' + player.type + '.jpg)' }">
         </div>
         <button class="btn btn-warning btn-xs btn-block" ng-show="human" ng-click="editPlayer(player)">Edit</button>
-        <!--<button class="btn btn-default btn-xs btn-block" ng-show="!human" ng-click="editMonster(player)">Edit</button>-->
+        <button class="btn btn-default btn-xs btn-block" ng-show="!human" ng-click="viewMonster(player)">View
+            Skills</button>
         <button class="btn btn-info btn-xs btn-block"
                 ng-click="(player.surprised) ? player.surprised = false : player.surprised = true">Surprised?</button>
     </div>

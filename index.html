@@ -15,6 +15,10 @@
     </head>
     <body ng-controller="adventureController as app">
 
+        <div ng-show="aDragonAppeared" class="dragon-appeared">
+            <img src="/assets/img/monsters/dragon.jpg" />
+        </div>
+
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -57,7 +61,8 @@
                             <player-bar player="p"
                                         human="true"
                                         edit-player="editPlayer"
-                                        damage-player="damagePlayer">
+                                        damage-player="damagePlayer"
+                                        remove-player="removePlayer">
                             </player-bar>
                         </li>
                     </ul>
@@ -105,7 +110,8 @@
                                     <player-bar player="m"
                                                 view-monster="viewMonster"
                                                 get-ability-score-modifier="getAbilityScoreModifier"
-                                                damage-player="damagePlayer">
+                                                damage-player="damagePlayer"
+                                                remove-player="removePlayer">
                                     </player-bar>
                                 </li>
                             </ul>

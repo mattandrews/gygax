@@ -256,3 +256,31 @@ h4 {
 .damage {
     margin-top: 10px;
 }
+
+@keyframes dragonAttack {
+    0% {
+        width: 0;
+    }
+    50% {
+        width: 600px;
+    }
+    100% {
+        width: 0px;
+    }
+}
+
+.dragon-appeared {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 666;
+}
+
+.dragon-appeared img {
+    animation-name: dragonAttack;
+    animation-duration: 1.5s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}

@@ -9,6 +9,11 @@
              ng-style="{ 'background-image': 'url(/assets/img/monsters/' + player.type + '.jpg)' }">
         </div>
         <button class="btn btn-warning btn-xs btn-block" ng-show="human" ng-click="editPlayer(player)">Edit</button>
+
+        <button class="btn btn-danger btn-xs btn-block" ng-show="human" ng-click="removePlayer(player)">Remove</button>
+        <button class="btn btn-danger btn-xs btn-block" ng-show="!human" ng-click="removePlayer(player, true)">Remove
+        </button>
+
         <button class="btn btn-default btn-xs btn-block" ng-show="!human" ng-click="viewMonster(player)">View
             Skills</button>
         <button class="btn btn-info btn-xs btn-block"
@@ -34,7 +39,7 @@
             <em>{{ player.hit_points }}</em> HP &bull;
             <em>{{ player.armor_class }}</em> AC
             <span ng-show="human"><br />
-                Passive WIS (Perception): <em>{{ player.passive_wisdom_perception }}</em><br />
+                Passive WIS (Per.): <em>{{ player.passive_wisdom_perception }}</em><br />
             </span>
             <div ng-show="!human">
                 Stealth modifier:

@@ -106,6 +106,13 @@ app.controller('adventureController', function($scope, $http) {
     $scope.addMonsterToEncounter = function (monster) {
         // make sure we don't reuse existing monsters
         var newMonster = jQuery.extend(true, {}, monster);
+        
+        if (newMonster.type === 'dragon') {
+            $scope.aDragonAppeared = true;
+        } else {
+            delete $scope.aDragonAppeared;
+        }
+        
         var newMonsterName = newMonster.name;
         var counter = 2; // existing monster is #1
 
@@ -411,6 +418,24 @@ app.controller('adventureController', function($scope, $http) {
         }
     };
 
+    $scope.removePlayer = function (player, isMonster) {
+        var shouldRemove = confirm("Are you sure you want to remove " + player.name + "?");
+        if (shouldRemove) {
+            var i;
+            if (isMonster) {
+                i = $scope.encounter.monsters.findIndex(p => p === player);
+                if (i > -1) {
+                    $scope.encounter.monsters.splice(i, 1);
+                }
+            } else {
+                i = $scope.party.findIndex(p => p === player);
+                if (i > -1) {
+                    $scope.party.splice(i, 1);
+                }
+            }
+        }
+    }
+
 });
 
 app.directive('playerBar', function() {
@@ -422,7 +447,8 @@ app.directive('playerBar', function() {
             editPlayer: '=',
             viewMonster: '=',
             getAbilityScoreModifier: '=',
-            damagePlayer: '='
+            damagePlayer: '=',
+            removePlayer: '='
         },
         templateUrl: '/assets/templates/player-bar.html'
     };

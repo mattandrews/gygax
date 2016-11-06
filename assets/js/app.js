@@ -304,10 +304,15 @@ app.controller('adventureController', function($scope, $http) {
         delete $scope.showModal;
     };
 
+    // used to re-init edit form
+    $scope.newPlayerTemplate = {};
+
     $scope.createPlayer = function (newPlayer) {
         newPlayer.initiative = 0;
         $scope.party.push(newPlayer);
         $scope.hideOverlay();
+        // clear previously-created new player
+        $scope.newPlayerTemplate = undefined;
     };
 
     $scope.editPlayer = function (player) {

@@ -56,7 +56,8 @@
                             class="party-list__item">
                             <player-bar player="p"
                                         human="true"
-                                        edit-player="editPlayer">
+                                        edit-player="editPlayer"
+                                        damage-player="damagePlayer">
                             </player-bar>
                         </li>
                     </ul>
@@ -103,7 +104,8 @@
                                 <li ng-repeat="m in encounter.monsters track by $index" class="party-list__item">
                                     <player-bar player="m"
                                                 view-monster="viewMonster"
-                                                get-ability-score-modifier="getAbilityScoreModifier">
+                                                get-ability-score-modifier="getAbilityScoreModifier"
+                                                damage-player="damagePlayer">
                                     </player-bar>
                                 </li>
                             </ul>

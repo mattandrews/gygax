@@ -13,6 +13,14 @@
             Skills</button>
         <button class="btn btn-info btn-xs btn-block"
                 ng-click="(player.surprised) ? player.surprised = false : player.surprised = true">Surprised?</button>
+
+        <div class="form-group form-group-sm damage">
+            <input type="number" class="form-control input-sm" ng-model="player.damageToApply" placeholder="Damage">
+            <button class="btn btn-danger btn-xs btn-block"
+                    ng-click="damagePlayer(player)">
+                Apply
+            </button>
+        </div>
     </div>
     <div class="flex__item party-list__info">
         <h4 class="media-heading">

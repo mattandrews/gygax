@@ -1,7 +1,7 @@
 var app = angular.module('dmTool', []);
 app.controller('adventureController', function($scope, $http) {
 
-    var isDebug = false;
+    var isDebug = true;
 
     var makeStatBlock = function (data) {
         return [
@@ -403,6 +403,14 @@ app.controller('adventureController', function($scope, $http) {
         }
     };
 
+    $scope.damagePlayer = function (player) {
+        var dmg = player.damageToApply;
+        if (dmg) {
+            player.hit_points = player.hit_points - dmg;
+            delete player.damageToApply;
+        }
+    };
+
 });
 
 app.directive('playerBar', function() {
@@ -413,7 +421,8 @@ app.directive('playerBar', function() {
             human: '=',
             editPlayer: '=',
             viewMonster: '=',
-            getAbilityScoreModifier: '='
+            getAbilityScoreModifier: '=',
+            damagePlayer: '='
         },
         templateUrl: '/assets/templates/player-bar.html'
     };

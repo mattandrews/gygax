@@ -1,7 +1,7 @@
 var app = angular.module('dmTool', []);
 app.controller('adventureController', function($scope, $http) {
 
-    var isDebug = true;
+    var isDebug = false;
 
     var makeStatBlock = function (data) {
         return [

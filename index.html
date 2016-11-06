@@ -54,6 +54,10 @@
                     <div class="inner">
                         <h2>Player Configuration</h2>
                         <h3>Your party <small>({{ party.length || 0 }} members)</small></h3>
+                        <button class="btn btn-primary btn-sm btn-block"
+                                ng-click="showOverlay('add-player')">
+                            Add new party member
+                        </button>
                     </div>
                     <ul class="party-list list-unstyled">
                         <li ng-repeat="p in party track by $index"
@@ -62,18 +66,11 @@
                                         human="true"
                                         edit-player="editPlayer"
                                         damage-player="damagePlayer"
-                                        remove-player="removePlayer">
+                                        remove-player="removePlayer"
+                                        roll-initiative="rollInitiative">
                             </player-bar>
                         </li>
                     </ul>
-
-                    <div class="inner">
-                        <button class="btn btn-primary btn-sm btn-block"
-                                ng-click="showOverlay('add-player')">
-                            Add new party member
-                        </button>
-                    </div>
-
                 </div>
 
                 <!-- encounter pane -->
@@ -111,7 +108,8 @@
                                                 view-monster="viewMonster"
                                                 get-ability-score-modifier="getAbilityScoreModifier"
                                                 damage-player="damagePlayer"
-                                                remove-player="removePlayer">
+                                                remove-player="removePlayer"
+                                                roll-initiative="rollInitiative">
                                     </player-bar>
                                 </li>
                             </ul>

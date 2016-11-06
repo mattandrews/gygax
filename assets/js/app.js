@@ -1,7 +1,7 @@
 var app = angular.module('dmTool', []);
 app.controller('adventureController', function($scope, $http) {
 
-    var isDebug = true;
+    var isDebug = false;
 
     var makeStatBlock = function (data) {
         return [
@@ -434,7 +434,13 @@ app.controller('adventureController', function($scope, $http) {
                 }
             }
         }
-    }
+    };
+
+    $scope.rollInitiative = function (player) {
+        var d20 = Math.floor(Math.random() * 20) + 1;
+        var dex = parseInt($scope.getAbilityScoreModifier(player.dexterity));
+        player.initiative = d20 + dex;
+    };
 
 });
 
@@ -448,7 +454,8 @@ app.directive('playerBar', function() {
             viewMonster: '=',
             getAbilityScoreModifier: '=',
             damagePlayer: '=',
-            removePlayer: '='
+            removePlayer: '=',
+            rollInitiative: '='
         },
         templateUrl: '/assets/templates/player-bar.html'
     };

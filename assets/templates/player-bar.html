@@ -65,7 +65,14 @@
 
         <div class="form-horizontal">
             <div class="form-group form-group-sm">
-                <label class="control-label col-sm-6">Initiative</label>
+                <label class="control-label col-sm-6">
+                    <button ng-show="!human"
+                            ng-click="rollInitiative(player)"
+                            class="btn btn-xs btn-default">
+                        Roll
+                    </button>
+                    Initiative
+                </label>
                 <div class="col-sm-6">
                     <input type="number" class="form-control input-sm" ng-model="player.initiative">
                 </div>

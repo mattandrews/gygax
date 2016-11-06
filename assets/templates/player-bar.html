@@ -1,57 +1,68 @@
-<div class="flex__item party-list__icon">
-    <div class="avatar"
-         ng-if="human"
-         ng-style="{ 'background-image': 'url(' + player.classname.image + ')' }">
+<div class="flex">
+    <div class="flex__item party-list__icon">
+        <div class="avatar"
+             ng-if="human"
+             ng-style="{ 'background-image': 'url(' + player.classname.image + ')' }">
+        </div>
+        <div class="avatar"
+             ng-if="!human"
+             ng-style="{ 'background-image': 'url(/assets/img/monsters/' + player.type + '.jpg)' }">
+        </div>
+        <button class="btn btn-default btn-xs btn-block" ng-show="human" ng-click="editPlayer(player)">Edit</button>
+        <!--<button class="btn btn-default btn-xs btn-block" ng-show="!human" ng-click="editMonster(player)">Edit</button>-->
+        <button class="btn btn-default btn-xs btn-block"
+                ng-click="(player.surprised) ? player.surprised = false : player.surprised = true">Surprised?</button>
     </div>
-    <div class="avatar"
-         ng-if="!human"
-         ng-style="{ 'background-image': 'url(/assets/img/monsters/' + player.type + '.jpg)' }">
-    </div>
-    <button class="btn btn-default btn-xs btn-block" ng-show="human" ng-click="editPlayer(player)">Edit</button>
-    <button class="btn btn-default btn-xs btn-block" ng-show="!human" ng-click="editMonster(player)">Edit</button>
-    <button class="btn btn-default btn-xs btn-block"
-            ng-click="(player.surprised) ? player.surprised = false : player.surprised = true">Surprised?</button>
-</div>
-<div class="flex__item party-list__info">
-    <h4 class="media-heading">
-        {{ player.name }} <span ng-if="player.surprised">Surprised!</span>
-        <small class="text-uppercase" ng-hide="human">{{ player.type }} / {{ player.alignment }}</small>
-        <small class="text-uppercase" ng-show="human">{{ player.classname.name }}</small>
-    </h4>
-    <h6 class="text-uppercase">
-        <span ng-hide="human">Challenge {{ player.challenge_rating }} &bull;</span>
-        <span ng-show="human">Level {{ player.level }} &bull;</span>
-        {{ player.hit_points }} HP &bull;
-        {{ player.armor_class }} AC
-        <span ng-show="human"><br />
-            Passive Wisdom (Perception): {{ player.passive_wisdom_perception }}<br />
-        </span>
-        <div ng-show="!human">
-            Stealth modifier:
-            <span ng-if="player.stealth">
-                +{{ player.stealth }}
+    <div class="flex__item party-list__info">
+        <h4 class="media-heading">
+            {{ player.name }}
+            <small class="text-uppercase" ng-hide="human">{{ player.type }} / {{ player.alignment }}</small>
+            <small class="text-uppercase" ng-show="human">{{ player.classname.name }}</small>
+        </h4>
+        <h6 class="text-uppercase">
+            <span ng-hide="human">Challenge <em>{{ player.challenge_rating }}</em> &bull;</span>
+            <span ng-show="human">Level <em>{{ player.level }}</em> &bull;</span>
+            <em>{{ player.hit_points }}</em> HP &bull;
+            <em>{{ player.armor_class }}</em> AC
+            <span ng-show="human"><br />
+                Passive WIS (Perception): <em>{{ player.passive_wisdom_perception }}</em><br />
             </span>
-            <span ng-if="!player.stealth">
-                {{ getAbilityScoreModifier(player.dexterity) }} (DEX)
-            </span>
-            <br />
-            Passive wisdom (perception): {{player.passivePerception}}<br />
+            <div ng-show="!human">
+                Stealth modifier:
+                <span ng-if="player.stealth">
+                    <em>+{{ player.stealth }}</em>
+                </span>
+                <span ng-if="!player.stealth">
+                    <em>{{ getAbilityScoreModifier(player.dexterity) }} (DEX)</em>
+                </span>
+                <br />
+                Passive wisdom (perception): <em>{{player.passivePerception}}</em><br />
+            </div>
+
+        </h6>
+
+        <ul class="stat-block list-unstyled"
+            ng-hide="human">
+            <li ng-repeat="stat in player.stats">
+                <span class="stat-block__name">{{ stat.name }}</span>
+                <span class="stat-block__value">{{ stat.modifier}}</span>
+            </li>
+        </ul>
+
+        <div class="form-horizontal">
+            <div class="form-group form-group-sm">
+                <label class="control-label col-sm-6">Initiative</label>
+                <div class="col-sm-6">
+                    <input type="number" class="form-control input-sm" ng-model="player.initiative">
+                </div>
+                </div>
+            <div class="form-group form-group-sm">
+                <label class="control-label col-sm-6">Hit points</label>
+                <div class="col-sm-6">
+                    <input type="number" class="form-control input-sm" ng-model="player.hit_points">
+                </div>
+            </div>
         </div>
 
-    </h6>
-
-    <ul class="stat-block list-unstyled"
-        ng-hide="human">
-        <li ng-repeat="stat in player.stats">
-            <span class="stat-block__name">{{ stat.name }}</span>
-            <span class="stat-block__value">{{ stat.modifier}}</span>
-        </li>
-    </ul>
-
-    <div class="form-inline">
-        <div class="form-group form-group-sm">
-            <label class="control-label">Initiative</label>
-            <input model-change-blur type="number" class="form-control input-sm" ng-model="player.initiative">
-        </div>
     </div>
 </div>

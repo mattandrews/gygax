@@ -1,12 +1,11 @@
 html, body, main { height: 100%; }
 
 main {
-    padding: 10px;
 }
 
 .flex {
     display: flex;
-    height: 100%;
+    /*height: 100%;*/
 }
 
 .flex--vert {
@@ -16,6 +15,10 @@ main {
 
 .flex__item {
     flex-grow: 1;
+}
+
+.l-main__party {
+    flex-basis: 280px;
 }
 
 .l-main__encounters {
@@ -28,14 +31,18 @@ main {
 }
 
 .avatar {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     background-size: cover;
     border-radius: 100%;
-    border: 1px solid #cccccc;
-    margin: 0;
+    border: 4px solid #bfbfa9;
+    margin: auto;
     margin-bottom: 10px;
     padding: 0;
+}
+
+.party-list {
+    margin: 0;
 }
 
 .party-list__item {
@@ -68,6 +75,10 @@ main {
     cursor: pointer;
 }
 
+.dice:hover {
+    background-color: #ffffff;
+}
+
 .dice span {
     display: table-cell;
     vertical-align: middle;
@@ -79,7 +90,7 @@ main {
 
 .dice-result {
     clear: right;
-    background-color: #eeeeee;
+    background-color: #dadada;
     padding: 5px;
     text-align: center;
     border-radius: 3px;
@@ -102,8 +113,8 @@ main {
 
 .stat-block li {
     display: inline-block;
-    width: 50px;
-    height: 50px;
+    width: 35px;
+    height: 48px;
     border: 1px solid #cccccc;
     vertical-align: top;
     margin-right: 10px;
@@ -116,14 +127,14 @@ main {
 
 .stat-block__name {
     text-transform: uppercase;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
     color: #999999;
     margin: 3px 0 0 0;
 }
 
 .stat-block__value {
-    font-size: 16px;
+    font-size: 14px;
     color: #666666;
 }
 
@@ -132,4 +143,101 @@ main {
 
 h6 {
     line-height: 1.5;
+}
+
+.disabled {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+.disabled:after {
+    content: '(surprised)';
+    margin-left: 5px;
+    font-size: 11px;
+}
+
+.defeated {
+    text-decoration: line-through;
+    opacity: 0.5;
+    color: red;
+}
+
+.defeated:after {
+    content: '(defeated)';
+    margin-left: 5px;
+    font-size: 11px;
+}
+
+.current-turn {
+    color: green;
+    font-weight: bold;
+}
+
+.navbar {
+    margin-bottom: 0;
+}
+
+.cur-btns {
+    margin-top: 10px;
+}
+
+/* theme */
+
+.inner {
+    padding: 10px 20px;
+}
+
+.l-main__tools {
+    background-color: #f1f1f1;
+}
+
+.l-main__party {
+   background-color: #333333;
+   color: #ffffff;
+}
+.l-main__party .party-list__item {
+    padding: 10px 20px;
+    margin: 0;
+    border-bottom: 1px solid #484848;
+    border-top: 1px solid #1d1d1d;
+}
+
+.l-main__party h6 {
+    color: #bfbfa9;
+}
+
+.party-list h6 em {
+    font-style: normal;
+    color: #c7b657;
+}
+
+
+.party-list--monsters {
+    background-color: #eeeeee;
+    margin: 20px 0;
+}
+
+.party-list--monsters .party-list__item {
+    padding: 10px 20px;
+    margin: 0;
+    border-bottom: 1px solid #d8d8d8;
+    border-top: 1px solid #fff;
+}
+
+/* override bootstrap */
+h2 {
+    font-size: 20px;
+    border-bottom-style: dotted;
+    border-bottom-width: 1px;
+    padding-bottom: 5px;
+    border-bottom-color: #666;
+}
+
+h3 {
+    font-size: 17px;
+    opacity: 0.7;
+}
+
+h4 {
+    font-size: 15px;
 }

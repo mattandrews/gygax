@@ -100,7 +100,28 @@ app.controller('adventureController', function($scope, $http) {
     };
 
     $scope.addMonsterToEncounter = function (monster) {
-        $scope.encounter.monsters.push(monster);
+        // make sure we don't reuse existing monsters
+        var newMonster = jQuery.extend(true, {}, monster);
+        var newMonsterName = newMonster.name;
+        var counter = 2; // existing monster is #1
+
+        var nameInUse = function (name) {
+            return $scope.encounter.monsters.find(m => m.name === name);
+        };
+
+        var monsterNameExists = nameInUse(newMonsterName);
+        if (monsterNameExists) {
+            console.log('that name exists');
+            while (monsterNameExists) {
+                newMonsterName = newMonster.name + ' #' + counter;
+                console.log('trying new name', newMonsterName);
+                monsterNameExists = nameInUse(newMonsterName);
+                counter = counter + 1;
+            }
+        }
+        newMonster.name = newMonsterName;
+        $scope.encounter.monsters.push(newMonster);
+        console.log($scope.encounter.monsters);
     };
 
     $scope.classTypes = [
@@ -296,6 +317,72 @@ app.controller('adventureController', function($scope, $http) {
         $scope.showOverlay('edit-monster');
     };
 
+    $scope.getCombatants = function () {
+        return $scope.party.concat($scope.encounter.monsters);
+    };
+
+    $scope.round = undefined;
+    $scope.turn = undefined;
+
+    $scope.beginRound = function () {
+        $scope.round = 1;
+        $scope.turn = 0; // 0-based for combat
+    };
+
+    var getNextUsablePlayerIndex = function (players, currentIndex) {
+        var nextPlayer = players.slice(currentIndex).find(p => !p.surprised && p.hit_points > 0);
+        return players.indexOf(nextPlayer);
+    };
+
+    $scope.nextTurn = function () {
+        var combatants = $scope.getCombatants();
+        // are we at the end
+        if (($scope.turn + 1) === combatants.length) {
+            $scope.round = $scope.round + 1;
+            $scope.turn = 0;
+        } else {
+            $scope.turn = $scope.turn + 1;
+            var nextPlayer = combatants[$scope.turn];
+
+            // this will fail if next player is dead too
+            if (nextPlayer.surprised || nextPlayer.hit_points <= 0) {
+                var next = getNextUsablePlayerIndex(combatants, $scope.turn);
+                if (next) {
+                    $scope.turn = next;
+                } else { // next usable player must be the next round
+                    $scope.round = $scope.round + 1;
+                    $scope.turn = 0;
+                }
+            }
+        }
+    };
+
+    $scope.endRound = function () {
+        $scope.encounter.monsters = [];
+        delete $scope.round;
+        delete $scope.turn;
+    };
+
+    $scope.saveState = function () {
+        var data = JSON.stringify({
+            game: $scope.party,
+            time: new Date()
+        });
+        window.localStorage.setItem('gygax', data);
+        alert('Data saved!')
+    };
+
+    $scope.loadState = function () {
+        var data = window.localStorage.getItem('gygax');
+        if (data) {
+            var json = JSON.parse(data);
+            var shouldRestore = confirm('Data found! Timestamp is ' + json.time + ' - do you want to import?');
+            if (shouldRestore) {
+                $scope.party = json.game;
+            }
+        }
+    };
+
 });
 
 app.directive('playerBar', function() {
@@ -325,21 +412,3 @@ app.directive('playerForm', function() {
         templateUrl: '/assets/templates/player-form.html'
     };
 });
-
-app.directive('modelChangeBlur', function() {
-    return {
-        restrict: 'A',
-        require: 'ngModel',
-        link: function(scope, elm, attr, ngModelCtrl) {
-            if (attr.type === 'radio' || attr.type === 'checkbox') return;
-
-            elm.unbind('input').unbind('keydown').unbind('change');
-            elm.bind('blur', function() {
-                scope.$apply(function() {
-                    ngModelCtrl.$setViewValue(elm.val());
-                });
-            });
-        }
-    };
-});
-

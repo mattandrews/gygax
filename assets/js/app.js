@@ -1,7 +1,7 @@
 var app = angular.module('dmTool', []);
 app.controller('adventureController', function($scope, $http) {
 
-    var isDebug = false;
+    var isDebug = true;
 
     var makeStatBlock = function (data) {
         return [
@@ -122,10 +122,8 @@ app.controller('adventureController', function($scope, $http) {
 
         var monsterNameExists = nameInUse(newMonsterName);
         if (monsterNameExists) {
-            console.log('that name exists');
             while (monsterNameExists) {
                 newMonsterName = newMonster.name + ' #' + counter;
-                console.log('trying new name', newMonsterName);
                 monsterNameExists = nameInUse(newMonsterName);
                 counter = counter + 1;
             }
@@ -250,10 +248,22 @@ app.controller('adventureController', function($scope, $http) {
 
     $scope.dice = [4, 6, 8, 10, 12, 20];
 
+    // assumes 1-based dice
+    var rollDice = function (max, numTimes) {
+        var r;
+        var total = 0;
+        if (!numTimes) { numTimes = 1; }
+        for (var i = 0; i < numTimes; i++) {
+            r = Math.floor(Math.random() * max) + 1;
+            total += r;
+        }
+        return total;
+    };
+
     $scope.roll = function (d) {
         $scope.diceRoll = {
             dice: 'D' + d,
-            roll: Math.floor(Math.random() * d) + 1
+            roll: rollDice(d)
         };
     };
     
@@ -294,6 +304,7 @@ app.controller('adventureController', function($scope, $http) {
         $scope.currencies.forEach(c => {
             c.share = c.value / $scope.party.length;
         });
+        $scope.xpShare = $scope.xp / $scope.party.length;
     };
 
     $scope.clearCurrency = function () {
@@ -301,6 +312,7 @@ app.controller('adventureController', function($scope, $http) {
             delete c.share;
             c.value = 0;
         });
+        delete $scope.xpShare;
     };
 
     $scope.showOverlay = function (overlayToShow) {
@@ -437,9 +449,49 @@ app.controller('adventureController', function($scope, $http) {
     };
 
     $scope.rollInitiative = function (player) {
-        var d20 = Math.floor(Math.random() * 20) + 1;
+        var d20 = rollDice(20);
         var dex = parseInt($scope.getAbilityScoreModifier(player.dexterity));
         player.initiative = d20 + dex;
+    };
+
+    $scope.rollAttack = function (action) {
+        var d20 = rollDice(20);
+        var b = action.damage_bonus;
+        // nat 1 or 20 means we ignore bonuses
+        if (d20 === 1 || d20 === 20) { b = 0; }
+        action.monsterAttackRoll = d20 + b;
+    };
+
+    $scope.rollDamage = function (action, damageDice, damageBonus) {
+        var damageDice = action.damage_dice;
+        var damageBonus = action.damage_bonus;
+        var total = 0;
+        var re = /(\d+)(d\d+) *\+* *(\d+)*(d\d+)*/;
+        var damageParts = damageDice.match(re);
+        if (damageParts) {
+            // remove first item as it's the entire match
+            if (damageParts[0] === damageDice) { damageParts.shift(); }
+
+            var numFirstDice = damageParts[0]; // 1d6 + 2 => 1
+            var firstDice = damageParts[1].replace('d', ''); // 1d6 + 2 => 6
+
+            // is there a second dice / bonus?
+            if (damageParts[2]) {
+                var numSecondDice = damageParts[2]; // 1d6 + 2d4 => 2
+                var secondDice = damageParts[3].replace('d', ''); // 1d6 + 2d4 => 4
+            }
+
+            // roll the first dice
+            total += rollDice(firstDice, numFirstDice);
+            // roll the second dice (if set)
+            if (secondDice) {
+                total += rollDice(secondDice, numSecondDice);
+            }
+            if (damageBonus) {
+                total += damageBonus;
+            }
+            action.monsterDamageRoll = total;
+        }
     };
 
 });

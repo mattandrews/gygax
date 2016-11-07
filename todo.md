@@ -1,0 +1,2 @@
+- remove surprise after r1
+- surprised player still got toggled?

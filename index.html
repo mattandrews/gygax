@@ -13,7 +13,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     </head>
-    <body ng-controller="adventureController as app">
+    <body ng-controller="adventureController as app"
+          class="flex flex--vert">
 
         <div ng-show="aDragonAppeared" class="dragon-appeared">
             <img src="/assets/img/monsters/dragon.jpg" />
@@ -60,8 +61,7 @@
                         </button>
                     </div>
                     <ul class="party-list list-unstyled">
-                        <li ng-repeat="p in party track by $index"
-                            class="party-list__item">
+                        <li ng-repeat="p in party track by $index">
                             <player-bar player="p"
                                         human="true"
                                         edit-player="editPlayer"
@@ -103,7 +103,7 @@
                             </div>
 
                             <ul class="party-list party-list--monsters list-unstyled">
-                                <li ng-repeat="m in encounter.monsters track by $index" class="party-list__item">
+                                <li ng-repeat="m in encounter.monsters track by $index">
                                     <player-bar player="m"
                                                 view-monster="viewMonster"
                                                 get-ability-score-modifier="getAbilityScoreModifier"
@@ -178,25 +178,30 @@
 
                     <!-- loot divider -->
                     <h3>Loot Divider</h3>
-                    <div ng-repeat="c in currencies">
-                        <div class="input-group input-group-sm">
-                            <span class="input-group-addon">{{ c.name }}</span>
-                            <input type="text" class="form-control" ng-model="c.value">
-                            <div ng-show="c.share" class="input-group-addon">= {{ c.share }}{{ c.abbreviation}}p each</div>
-                        </div>
+                    <div ng-repeat="c in currencies"
+                         class="input-group input-group-sm">
+                        <span class="input-group-addon">{{ c.name }}</span>
+                        <input type="text" class="form-control" ng-model="c.value">
+                        <div ng-show="c.share" class="input-group-addon">= {{ c.share }}{{ c.abbreviation}}p each</div>
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon">XP</span>
+                        <input type="text" class="form-control" ng-model="xp">
+                        <div ng-show="xpShare" class="input-group-addon">= {{ xpShare }} xp each</div>
                     </div>
 
                     <div class="row cur-btns">
                         <div class="col-md-6">
-                            <button class="btn btn-primary" ng-click="splitLoot()">Split {{ party.length }}
-                                ways</button>
+                            <button class="btn btn-primary" ng-click="splitLoot()">
+                                Split {{ party.length }} ways
+                            </button>
                         </div>
                         <div class="col-md-6">
                             <button class="btn btn-primary" ng-click="clearCurrency()">Clear all</button>
                         </div>
                     </div>
 
-                    <h3>Notes</h3>
+                    <h3 class="space-above">Notes</h3>
                     <textarea class="form-control"></textarea>
 
 
@@ -257,6 +262,28 @@
                                         <span ng-if="action.damage_dice">
                                             <strong>Damage</strong> {{ action.damage_dice }}
                                             <span ng-if="action.damage_bonus">+ {{ action.damage_bonus }}</span>
+
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <button class="btn btn-default"
+                                                            ng-click="rollAttack(action)">
+                                                        Roll Attack
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <strong>ATK:</strong> {{ action.monsterAttackRoll }}
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <button class="btn btn-default"
+                                                            ng-click="rollDamage(action)">
+                                                        Roll Damage
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <strong>Damage:</strong> {{ action.monsterDamageRoll }}
+                                                </div>
+                                            </div>
+
                                         </span>
                                     </li>
                                 </ul>

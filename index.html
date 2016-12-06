@@ -75,9 +75,119 @@
 
                 <!-- encounter pane -->
                 <div class="flex__item l-main__encounters inner">
-                    <h2>Monsters &amp; encounters</h2>
 
-                    <div class="row">
+                    <!-- in-depth character info -->
+                    <div ng-show="showModal">
+
+                        <button type="button" class="close" ng-click="hideOverlay()">
+                            <span>&times;</span>
+                        </button>
+                        <h4 class="modal-title" ng-show="showModal === 'add-player'">Add player</h4>
+                        <h4 class="modal-title" ng-show="showModal === 'edit-player'">Editing: {{ playerToEdit.name
+                            }}</h4>
+                        <h4 class="modal-title" ng-show="showModal === 'view-monster'">Viewing: {{
+                            monsterToView.name }}</h4>
+
+                        <!-- add player -->
+                        <div ng-show="showModal === 'add-player'">
+                            <player-form player="newPlayerTemplate"
+                                         races="races"
+                                         class-types="classTypes"
+                                         create-player="createPlayer">
+                            </player-form>
+                        </div>
+                        <!-- edit player -->
+                        <div ng-show="showModal === 'edit-player'">
+                            <player-form player="playerToEdit"
+                                         races="races"
+                                         class-types="classTypes"
+                                         done-editing="doneEditing">
+                            </player-form>
+                        </div>
+                        <!-- view monster -->
+                        <div ng-show="showModal === 'view-monster'" style="overflow: scroll; height: 100%;">
+
+                            <div class="flex" style="height: auto;">
+                                <div class="flex__item flex__item--shrinkable m-r">
+                                    <h3>Stats</h3>
+                                    <ul class="stat-block list-unstyled">
+                                        <li ng-repeat="stat in monsterToView.stats">
+                                            <span class="stat-block__name">{{ stat.name }}</span>
+                                            <span class="stat-block__value">{{ stat.modifier}}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="flex__item flex__item--shrinkable m-r">
+                                    <h3>Senses</h3>
+                                    <p>{{ monsterToView.senses }}</p>
+                                </div>
+                                <div class="flex__item flex__item--shrinkable">
+                                    <h3>Starting HP</h3>
+                                    <p>{{ monsterToView.originalHp }}</p>
+                                </div>
+                            </div>
+
+                            <h3>Actions</h3>
+                            <ul class="list-group">
+                                <li ng-repeat="action in monsterToView.actions" class="list-group-item">
+                                    <h4 class="list-group-item-heading">{{ action.name }}</h4>
+                                    <p class="list-group-item-text">
+                                        <span ng-if="action.descfull">{{ action.desc }}</span>
+                                        <span ng-if="!action.descfull">{{ action.desc | limitTo : 100 }}...</span>
+                                        <button class="btn btn-link"
+                                                ng-click="toggleAction(action)">
+                                            <span ng-show="!action.descfull">read more</span>
+                                            <span ng-show="action.descfull">read less</span>
+                                        </button>
+                                    </p>
+                            <span ng-if="action.attack_bonus">
+                                <strong>ATK</strong> +{{ action.attack_bonus }}<br />
+                            </span>
+                            <span ng-if="action.damage_dice">
+                                <strong>Damage</strong> {{ action.damage_dice }}
+                                <span ng-if="action.damage_bonus">+ {{ action.damage_bonus }}</span>
+
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <button class="btn btn-default"
+                                                ng-click="rollAttack(action)">
+                                            Roll Attack
+                                        </button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <strong>ATK:</strong> {{ action.monsterAttackRoll }}
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button class="btn btn-default"
+                                                ng-click="rollDamage(action)">
+                                            Roll Damage
+                                        </button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <strong>Damage:</strong> {{ action.monsterDamageRoll }}
+                                    </div>
+                                </div>
+
+                            </span>
+                                </li>
+                            </ul>
+
+                            <h3>Special Abilities</h3>
+                            <ul class="list-group">
+                                <li ng-repeat="ability in monsterToView.special_abilities" class="list-group-item">
+                                    <h4 class="list-group-item-heading">{{ ability.name }}</h4>
+                                    <p class="list-group-item-text">{{ ability.desc }}</p>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <!-- monsters / combat -->
+                    <div ng-hide="showModal">
+                        <h2>Monsters &amp; encounters</h2>
+
+                        <div class="row">
 
                         <!-- monster list -->
                         <div class="col-md-6">
@@ -154,7 +264,7 @@
                             </ol>
                         </div>
                     </div>
-
+                    </div>
 
                 </div>
 
@@ -208,98 +318,6 @@
                 </div>
             </div>
 
-            <!-- overlay -->
-            <div class="modal fade" ng-class="{ 'in visible': showModal }">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" ng-click="hideOverlay()">
-                                <span>&times;</span>
-                            </button>
-                            <h4 class="modal-title" ng-show="showModal === 'add-player'">Add player</h4>
-                            <h4 class="modal-title" ng-show="showModal === 'edit-player'">Editing: {{ playerToEdit.name
-                                }}</h4>
-                            <h4 class="modal-title" ng-show="showModal === 'view-monster'">Viewing: {{
-                                monsterToView.name }}</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="overlay__inner">
-                                <!-- add player -->
-                                <div ng-show="showModal === 'add-player'">
-                                    <player-form player="newPlayerTemplate"
-                                                 races="races"
-                                                 class-types="classTypes"
-                                                 create-player="createPlayer">
-                                    </player-form>
-                                </div>
-                                <!-- edit player -->
-                                <div ng-show="showModal === 'edit-player'">
-                                    <player-form player="playerToEdit"
-                                                 races="races"
-                                                 class-types="classTypes"
-                                                 done-editing="doneEditing">
-                                    </player-form>
-                                </div>
-                                <!-- view monster -->
-                                <div ng-show="showModal === 'view-monster'">
-                                    <h3>Senses</h3>
-                                    <p>{{ monsterToView.senses }}</p>
-                                    <h3>Actions</h3>
-                                    <ul class="list-group">
-                                        <li ng-repeat="action in monsterToView.actions" class="list-group-item">
-                                            <h4 class="list-group-item-heading">{{ action.name }}</h4>
-                                            <p class="list-group-item-text">
-                                                <span ng-if="action.descfull">{{ action.desc }}</span>
-                                                <span ng-if="!action.descfull">{{ action.desc | limitTo : 100 }}...</span>
-                                                <button class="btn btn-link"
-                                                        ng-click="toggleAction(action)">
-                                                    <span ng-show="!action.descfull">read more</span>
-                                                    <span ng-show="action.descfull">read less</span>
-                                                </button>
-                                            </p>
-                                            <span ng-if="action.attack_bonus">
-                                                <strong>ATK</strong> +{{ action.attack_bonus }}<br />
-                                            </span>
-                                            <span ng-if="action.damage_dice">
-                                                <strong>Damage</strong> {{ action.damage_dice }}
-                                                <span ng-if="action.damage_bonus">+ {{ action.damage_bonus }}</span>
-
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <button class="btn btn-default"
-                                                                ng-click="rollAttack(action)">
-                                                            Roll Attack
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <strong>ATK:</strong> {{ action.monsterAttackRoll }}
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <button class="btn btn-default"
-                                                                ng-click="rollDamage(action)">
-                                                            Roll Damage
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <strong>Damage:</strong> {{ action.monsterDamageRoll }}
-                                                    </div>
-                                                </div>
-
-                                            </span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" ng-click="hideOverlay()">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-backdrop fade"
-                 style="display: none;"
-                 ng-class="{ 'in visible': showModal }"></div>
         </main>
 
         <script src="assets/js/libs/angular.min.js"></script>

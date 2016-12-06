@@ -18295,6 +18295,168 @@
         ]
     },
     {
+        "name": "Flameskull",
+        "size": "Tiny",
+        "type": "undead",
+        "subtype": "",
+        "alignment": "neutral evil",
+        "armor_class": 13,
+        "hit_points": 40,
+        "hit_dice": "9d4 + 18",
+        "speed": "0 ft., fly 40ft (hover)",
+        "strength": 1,
+        "dexterity": 17,
+        "constitution": 14,
+        "intelligence": 16,
+        "wisdom": 10,
+        "charisma": 11,
+        "wisdom_save": 0,
+        "arcana": 5,
+        "perception": 2,
+        "damage_vulnerabilities": "",
+        "damage_resistances": "lightning, necrotic, piercing",
+        "damage_immunities": "cold, fire, poison",
+        "condition_immunities": "charmed, frightened, paralyzed, poisoned, prone",
+        "senses": "darkvision 60 ft., passive Perception 12",
+        "languages": "Common",
+        "challenge_rating": "4 (1100 XP)",
+        "special_abilities": [
+            {
+                "name": "Illumination",
+                "desc": "The flameskull sheds either dim light in a 15-foot radius, or bright light in a 15-foot radius and dim light for an additional 15 feet. It can switch between the options as an action."
+            },
+            {
+                "name": "Magic Resistance",
+                "desc": "The flameskull has advantage on saving throws against spells and other magical effects."
+            },
+            {
+                "name": "Rejuvenation",
+                "desc": "If the flameskull is destroyed, it regains all its hit points in 1 hour unless holy water is sprinkled on its remains or a dispel magic or remove curse spell is cast on them."
+            },
+            {
+                "name": "Spellcasting",
+                "desc": "Spellcasting. The flameskull is a 5th-level spellcaster. Its spellcasting ability is Intelligence (spell save DC 13, +5 to hit with spell attacks). It requires no somatic or material components to cast its spells. The flameskull has the following wizard spells prepared: Cantrip (at will): mage hand / 1st level (3 slots): magic missile, shield / 2nd level (2 slots): blur, flaming sphere / 3rd level (1 slot): fireball"
+            }
+        ],
+        "actions": [
+            {
+                "name": "Multiattack",
+                "desc": "The flameskull uses Fire Ray twice.",
+                "attack_bonus": 0
+            },
+            {
+                "name": "Fire Ray",
+                "desc": "Ranged Spell Attack: +5 to hit, range 30 ft., one target. Hit: 10 (3d6) fire damage.",
+                "attack_bonus": 5,
+                "damage_dice": "3d6",
+                "damage_bonus": 0
+            }
+        ]
+    },
+    {
+        "name": "Mormesk the Wraith",
+        "size": "Medium",
+        "type": "undead",
+        "subtype": "",
+        "alignment": "neutral evil",
+        "armor_class": 13,
+        "hit_points": 45,
+        "hit_dice": "6d8 + 18",
+        "speed": "0 ft., fly 60 ft. (hover)",
+        "strength": 6,
+        "dexterity": 16,
+        "constitution": 16,
+        "intelligence": 12,
+        "wisdom": 14,
+        "charisma": 15,
+        "damage_vulnerabilities": "",
+        "damage_resistances": "acid, cold, fire, lightning, thunder; bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered",
+        "damage_immunities": "necrotic, poison",
+        "condition_immunities": "charmed, exhaustion, grappled, paralyzed, petrified, poisoned, prone, restrained",
+        "senses": "darkvision 60 ft., passive Perception 12",
+        "languages": "the languages it knew in life",
+        "challenge_rating": "3",
+        "special_abilities": [
+            {
+                "name": "Incorporeal Movement",
+                "desc": "The wraith can move through other creatures and objects as if they were difficult terrain. It takes 5 (1d10) force damage if it ends its turn inside an object.",
+                "attack_bonus": 0
+            },
+            {
+                "name": "Sunlight Sensitivity",
+                "desc": "While in sunlight, the wraith has disadvantage on attack rolls, as well as on Wisdom (Perception) checks that rely on sight.",
+                "attack_bonus": 0
+            }
+        ],
+        "actions": [
+            {
+                "name": "Life Drain",
+                "desc": "Melee Weapon Attack: +5 to hit, reach 5 ft., one creature. Hit: 16 (3d8+3) necrotic damage. The target must succeed on a DC 13 Constitution saving throw or its hit point maximum is reduced by an amount equal to the damage taken. This reduction lasts until the target finishes a long rest. The target dies if this effect reduces its hit point maximum to 0.",
+                "attack_bonus": 5,
+                "damage_dice": "3d8",
+                "damage_bonus": 3
+            }
+        ]
+    },
+    {
+        "name": "Nezznar the Black Spider",
+        "size": "Medium",
+        "type": "humanoid",
+        "subtype": "elf",
+        "alignment": "neutral evil",
+        "armor_class": 11,
+        "hit_points": 27,
+        "hit_dice": "6d8",
+        "speed": "30 ft.",
+        "strength": 9,
+        "dexterity": 13,
+        "constitution": 10,
+        "intelligence": 16,
+        "wisdom": 14,
+        "charisma": 13,
+        "perception": 4,
+        "stealth": 3,
+        "arcana": 5,
+        "damage_vulnerabilities": "",
+        "damage_resistances": "",
+        "damage_immunities": "",
+        "condition_immunities": "",
+        "senses": "darkvision 120 ft., passive Perception 14",
+        "languages": "Elvish, Undercommon",
+        "challenge_rating": "2",
+        "special_abilities": [
+            {
+                "name": "Fey Ancestry",
+                "desc": "The drow has advantage on saving throws against being charmed, and magic can't put the drow to sleep.",
+                "attack_bonus": 0
+            },
+            {
+                "name": "Innate Spellcasting",
+                "desc": "The drow's spellcasting ability is Charisma (spell save DC 11). It can innately cast the following spells, requiring no material components:\nAt will: dancing lights\n1/day each: darkness, faerie fire",
+                "attack_bonus": 0
+            },
+            {
+                "name": "Sunlight Sensitivity",
+                "desc": "While in sunlight, the drow has disadvantage on attack rolls, as well as on Wisdom (Perception) checks that rely on sight.",
+                "attack_bonus": 0
+            },
+            {
+                "name": "Spellcasting",
+                "desc": "Nezznar is a 4th-level spellcaster that uses Intelligence as his spellcasting ability (spell save DC 13; +5 to hit with spell attacks). Nezznar haas the following spells prepared from the wizard's spell list: Cantrips (at will): mage hand, ray of frost, shocking grasp / 1st Level (4 slots): mage armor, magic missile, shield / 2nd Level (3 slots): invisibility,suggestion",
+                "attack_bonus": 0
+            }
+        ],
+        "actions": [
+            {
+                "name": "Spider Staff",
+                "desc": "Melee Weapon Attack: +1 to hit, reach 5 ft., one target. Hit: 2 (1d6 - 1) bludgeoning damageplus 3 (1d6) poison damage.",
+                "attack_bonus": 1,
+                "damage_dice": "1d6",
+                "damage_bonus": -1
+            }
+        ]
+    },
+    {
         "license": [
             "OPEN GAME LICENSE Version 1.0a",
             "The following text is the property of Wizards of the Coast, Inc. and is Copyright 2000 Wizards of the Coast, Inc (\"Wizards\"). All Rights Reserved.",

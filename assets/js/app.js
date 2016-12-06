@@ -85,6 +85,7 @@ app.controller('adventureController', function($scope, $http) {
     $http.get('/assets/data/monsters.json').success(function (data) {
         $scope.monsters = data.filter(d => d.name).map(d => {
             d.stats = makeStatBlock(d);
+            d.originalHp = d.hit_points;
             d.type = d.type.replace(/ /g, '-');
             d.passivePerception = 10 + (d.perception  || parseInt($scope.getAbilityScoreModifier(d.wisdom)));
             d.initiative = 0;
@@ -367,7 +368,7 @@ app.controller('adventureController', function($scope, $http) {
 
     $scope.nextTurn = function () {
         var combatants = $scope.getCombatants();
-        // are we at the end
+        // are we at the end?
         if (($scope.turn + 1) === combatants.length) {
             $scope.round = $scope.round + 1;
             $scope.turn = 0;
